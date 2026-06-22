@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pearl Wind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBFBF9;
+    --ink:#13130F;
+    --ink-2:#5B5B54;
+    --ink-3:#9A9A91;
+    --accent:#1A6B57;
+    --accent-soft:#E4F0EB;
+    --red:#B23A2E;
+    --red-soft:#F7E9E6;
+    --amber:#9A6512;
+    --amber-soft:#F6ECD9;
+    --line:#E6E5DF;
+    --card:#FFFFFF;
+    --mono:'SF Mono',ui-monospace,Menlo,monospace;
+  }
+  [data-theme="dark"]{
+    --bg:#0E0E0C;
+    --ink:#F2F1EC;
+    --ink-2:#A8A79E;
+    --ink-3:#6E6D66;
+    --accent:#5DCAA5;
+    --accent-soft:#10342B;
+    --red:#E88A7D;
+    --red-soft:#3A1C17;
+    --amber:#E0B05A;
+    --amber-soft:#352713;
+    --line:#26261F;
+    --card:#16160F;
+  }
+  html{transition:background .25s;}
+  body{transition:background .25s,color .25s;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{min-height:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;letter-spacing:-0.011em;
+    -webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column;min-height:100vh;
+  }
+  .top{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;letter-spacing:-0.02em;color:var(--ink);text-decoration:none;cursor:pointer;transition:opacity .15s;}
+  .brand:hover{opacity:0.7;}
+  .brand svg{width:24px;height:24px;display:block;color:var(--ink);}
+  .tag{font-size:12px;color:var(--ink-3);letter-spacing:0.02em;}
+  .topright{display:flex;align-items:center;gap:16px;}
+  .themebtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;
+    cursor:pointer;color:var(--ink-2);font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;
+    transition:border-color .15s,color .15s;}
+  .themebtn:hover{border-color:var(--accent);color:var(--accent);}
+  .themebtn .ico-moon{display:none;}
+  [data-theme="dark"] .themebtn .ico-sun{display:none;}
+  [data-theme="dark"] .themebtn .ico-moon{display:inline;}
+
+  main{
+    flex:1;display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;
+    max-width:1060px;margin:0 auto;padding:40px 32px;width:100%;
+  }
+  .copy h1{font-size:clamp(30px,4.6vw,50px);line-height:1.08;letter-spacing:-0.035em;font-weight:600;max-width:15ch;margin-bottom:20px;}
+  .copy h1 .accent{color:var(--accent);}
+  .lede{font-size:clamp(16px,1.7vw,18px);color:var(--ink-2);max-width:46ch;line-height:1.55;}
+  .cred{font-size:14px;color:var(--ink-3);margin-top:16px;}
+  .status{margin-top:34px;display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);
+    border:1px solid var(--line);border-radius:100px;padding:8px 16px;text-decoration:none;cursor:pointer;
+    transition:border-color .15s,background .15s;}
+  .status:hover{border-color:var(--accent);background:var(--accent-soft);}
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 rgba(26,107,87,0.4);animation:pulse 2.6s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(26,107,87,0.35)}70%{box-shadow:0 0 0 7px rgba(26,107,87,0)}100%{box-shadow:0 0 0 0 rgba(26,107,87,0)}}
+
+  /* live app mini */
+  .demo{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(0,0,0,0.03);}
+  .demo-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--line);}
+  .demo-bar .d{width:9px;height:9px;border-radius:50%;}
+  .demo-bar .label{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:6px;}
+  .demo-body{padding:18px;}
+  .scanline{font-family:var(--mono);font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+  .scanline .sdot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;
+    animation:blink 1.8s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+  .row{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);
+    margin-bottom:8px;opacity:0;transform:translateY(8px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+  .row.in{opacity:1;transform:none;}
+  .row .rsurf{font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;
+    color:var(--ink-3);background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:2px 7px;flex-shrink:0;min-width:62px;text-align:center;}
+  .row .rdom{font-family:var(--mono);font-size:12.5px;color:var(--ink);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .row .rtag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:6px;white-space:nowrap;}
+  .rtag.fraud{background:var(--red-soft);color:var(--red);}
+  .rtag.parked{background:var(--amber-soft);color:var(--amber);}
+  .rtag.scan{background:var(--accent-soft);color:var(--accent);}
+  .demo-foot{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding:12px 18px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;}
+  .demo-foot .grn{color:var(--accent);}
+
+  footer{padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink-3);}
+  footer a{color:var(--ink-2);text-decoration:none;}
+  footer a:hover{color:var(--ink);}
+
+  @media(max-width:820px){
+    main{grid-template-columns:1fr;gap:36px;padding:28px 24px;text-align:left;}
+    .top{padding:20px 24px;}
+    .copy h1{max-width:none;}
+    .lede{max-width:none;}
+    .demo{max-width:440px;}
+  }
+  @media(prefers-reduced-motion:reduce){.status .dot,.scanline .sdot{animation:none}}
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <a class="brand" href="mailto:austinocampo47@gmail.com?subject=Pearl%20Wind%20%E2%80%94%20interested">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="Pearl Wind">
+        <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="1.25" opacity="0.35"/>
+        <circle cx="24" cy="24" r="14" fill="currentColor" opacity="0.10"/>
+        <circle cx="24" cy="24" r="14" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="18.5" cy="18.5" r="4.2" fill="currentColor" opacity="0.9"/>
+      </svg>
+      Pearl Wind
+    </a>
+    <div class="topright">
+      <span class="tag">Brand protection</span>
+      <button class="themebtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="ico-sun">☀</span><span class="ico-moon">☾</span>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <div class="copy">
+      <h1>We find and shut down the <span class="accent">fakes</span> copying your brand.</h1>
+      <p class="lede">Pearl Wind uses autonomous AI agents to hunt the fake storefronts and scam ads impersonating modern e-commerce brands — and take them down.</p>
+      <p class="cred">Built by engineers from Stanford and UC Irvine.</p>
+      <a class="status" href="mailto:austinocampo47@gmail.com?subject=Pearl%20Wind%20%E2%80%94%20interested"><span class="dot"></span> Working with select brands · by invitation</a>
+    </div>
+
+    <div class="demo" aria-hidden="true">
+      <div class="demo-bar">
+        <span class="d" style="background:#E5605A"></span><span class="d" style="background:#E8B84B"></span><span class="d" style="background:#5DBE8E"></span>
+        <span class="label">pearl wind · today's scan</span>
+      </div>
+      <div class="demo-body">
+        <div class="scanline"><span class="sdot"></span><span id="scantext">searching the web for fakes of Lumara…</span></div>
+        <div class="row" id="r0"><span class="rsurf">fake site</span><span class="rdom">shop-lumara.shop</span><span class="rtag fraud">caught</span></div>
+        <div class="row" id="r1"><span class="rsurf">scam ad</span><span class="rdom">"Lumara 70% off"</span><span class="rtag fraud">caught</span></div>
+        <div class="row" id="r2"><span class="rsurf">fake site</span><span class="rdom">lumara-outlet.store</span><span class="rtag fraud">caught</span></div>
+        <div class="row" id="r3"><span class="rsurf">fake seller</span><span class="rdom">Lumara on TikTok Shop</span><span class="rtag scan">checking…</span></div>
+      </div>
+      <div class="demo-foot"><span>monitoring 24/7</span><span class="grn">3 caught · 1 in review</span></div>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 Pearl Wind · Est. 2026</span>
+    <a href="mailto:austinocampo47@gmail.com?subject=Pearl%20Wind%20%E2%80%94%20interested">austinocampo47@gmail.com</a>
+  </footer>
+
+<script>
+  function toggleTheme(){
+    const root=document.documentElement;
+    root.setAttribute('data-theme', root.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
+  }
+  const rows=['r0','r1','r2','r3'];
+  function play(){
+    rows.forEach((id,i)=>{ const el=document.getElementById(id); el.classList.remove('in');
+      setTimeout(()=>el.classList.add('in'), 900+i*1100); });
+  }
+  play();
+  setInterval(()=>{ rows.forEach(id=>document.getElementById(id).classList.remove('in')); setTimeout(play,700); }, 9000);
+</script>
+
+</body>
+</html>
