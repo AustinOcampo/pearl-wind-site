@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pearl Wind</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjIiIGZpbGw9IiMxQTZCNTciLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIxMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkJGQkY5IiBzdHJva2Utd2lkdGg9IjIuNiIvPjxjaXJjbGUgY3g9IjE4LjUiIGN5PSIxOC41IiByPSI0LjYiIGZpbGw9IiNGQkZCRjkiLz48L3N2Zz4=">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -61,11 +62,18 @@
   [data-theme="dark"] .themebtn .ico-sun{display:none;}
   [data-theme="dark"] .themebtn .ico-moon{display:inline;}
 
-  .content{min-height:calc(100vh - 150px);flex-shrink:0;display:flex;flex-direction:column;justify-content:center;}
+  .content{min-height:calc(100vh - 140px);flex-shrink:0;display:flex;flex-direction:column;}
   .panels{max-width:720px;margin:0 auto;padding:0 32px;width:100%;}
+  .cta-box{display:flex;gap:8px;margin-top:26px;max-width:410px;}
+  .cta-box input{flex:1;min-width:0;font-family:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;outline:none;transition:border-color .15s;}
+  .cta-box input:focus{border-color:var(--accent);}
+  .cta-box button{font-family:inherit;font-size:14px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 18px;cursor:pointer;white-space:nowrap;transition:opacity .15s;}
+  .cta-box button:hover{opacity:.9;} .cta-box button:disabled{opacity:.6;}
+  .cta-sub{font-size:12.5px;color:var(--ink-3);margin-top:11px;}
+  .hero-thanks{font-size:14px;color:var(--accent);font-weight:500;margin-top:18px;}
   main{
-    display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;
-    max-width:1120px;margin:0 auto;padding:44px 32px 36px;width:100%;
+    flex:1;display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;
+    max-width:1120px;margin:0 auto;padding:44px 32px 20px;width:100%;
   }
   .copy h1{font-size:clamp(30px,4.6vw,50px);line-height:1.08;letter-spacing:-0.035em;font-weight:600;max-width:15ch;margin-bottom:20px;}
   .copy h1 .accent{color:var(--accent);}
@@ -108,7 +116,7 @@
   footer a{color:var(--ink-2);text-decoration:none;}
   footer a:hover{color:var(--ink);}
 
-  .ctas{max-width:640px;margin:0 auto;padding:28px 32px 8px;width:100%;text-align:center;}
+  .ctas{max-width:640px;margin:0 auto;padding:6px 32px 20px;width:100%;text-align:center;}
   .ctalinks{display:flex;align-items:center;justify-content:center;gap:18px;}
   .ulink{font-family:inherit;background:none;border:none;padding:0;cursor:pointer;
     font-size:14px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;transition:color .15s;}
@@ -173,7 +181,14 @@
       <h1>We hunt down the <span class="accent">fake stores</span> copying your brand.</h1>
       <p class="lede">Other brand-protection tools chase fake domains one at a time. Pearl Wind finds the operator behind them - so you stop the source, not just the next site.</p>
       <p class="cred">Aggressive brand protection - built by Fortune 50 fraud &amp; security engineers.</p>
-      <a class="status" href="mailto:austin@pearlwind.ai?subject=Pearl%20Wind%20%E2%80%94%20interested"><span class="dot"></span> Now accepting a limited number of founding brands</a>
+      <form class="cta-box" id="heroform">
+        <input type="hidden" name="subject" value="New founding-brand signup - Pearl Wind">
+        <input type="hidden" name="from_name" value="Pearl Wind site">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Protect my brand</button>
+      </form>
+      <p class="cta-sub">Now accepting a limited number of founding brands.</p>
+      <div class="hero-thanks" id="herothanks" hidden>You're in - we'll reach out shortly. - Austin</div>
     </div>
 
     <div class="demo" aria-hidden="true">
@@ -259,7 +274,6 @@
 
     <div class="panel" id="panel-scan" hidden>
     <form id="scanform">
-      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
       <input type="hidden" name="subject" value="New free-scan request - Pearl Wind">
       <input type="hidden" name="from_name" value="Pearl Wind site">
       <input type="text" name="brand" placeholder="Brand" required>
@@ -289,6 +303,9 @@
   play();
   setInterval(()=>{ rows.forEach(id=>document.getElementById(id).classList.remove('in')); setTimeout(play,700); }, 9000);
 
+  // ===== ONE place to set your Web3Forms key (free at web3forms.com -> austin@pearlwind.ai) =====
+  var W3F_KEY='YOUR_WEB3FORMS_ACCESS_KEY';
+
   function togglePanel(which){
     var w=document.getElementById('panel-why'), s=document.getElementById('panel-scan');
     var target = which==='why' ? w : s, other = which==='why' ? s : w;
@@ -298,17 +315,23 @@
     if(opening){ requestAnimationFrame(function(){ target.scrollIntoView({behavior:'smooth', block:'start'}); }); }
     else { window.scrollTo({top:0, behavior:'smooth'}); }
   }
-  // Free-scan form -> emails the lead to you (via Web3Forms). Needs your access key above.
-  var sf=document.getElementById('scanform');
-  if(sf){ sf.addEventListener('submit', function(e){
-    e.preventDefault();
-    var btn=sf.querySelector('button');
-    btn.textContent='Sending…'; btn.disabled=true;
-    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(sf)})
-      .then(function(r){ if(r.ok){ sf.hidden=true; document.getElementById('scanthanks').hidden=false; }
-        else { btn.textContent='Try again'; btn.disabled=false; } })
-      .catch(function(){ btn.textContent='Try again'; btn.disabled=false; });
-  }); }
+
+  // Both lead forms email you via Web3Forms, using the one key above.
+  function wireForm(formId, thanksId){
+    var f=document.getElementById(formId); if(!f) return;
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn=f.querySelector('button');
+      btn.textContent='Sending…'; btn.disabled=true;
+      var fd=new FormData(f); fd.append('access_key', W3F_KEY);
+      fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:fd})
+        .then(function(r){ if(r.ok){ f.hidden=true; var t=document.getElementById(thanksId); if(t) t.hidden=false; }
+          else { btn.textContent='Try again'; btn.disabled=false; } })
+        .catch(function(){ btn.textContent='Try again'; btn.disabled=false; });
+    });
+  }
+  wireForm('scanform','scanthanks');
+  wireForm('heroform','herothanks');
 </script>
 
 </body>
