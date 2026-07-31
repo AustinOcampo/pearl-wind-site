@@ -61,7 +61,8 @@
   [data-theme="dark"] .themebtn .ico-sun{display:none;}
   [data-theme="dark"] .themebtn .ico-moon{display:inline;}
 
-  .content{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:7vh;}
+  .content{min-height:calc(100vh - 150px);flex-shrink:0;display:flex;flex-direction:column;justify-content:center;}
+  .panels{max-width:720px;margin:0 auto;padding:0 32px;width:100%;}
   main{
     display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;
     max-width:1120px;margin:0 auto;padding:44px 32px 36px;width:100%;
@@ -113,7 +114,7 @@
     font-size:14px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;transition:color .15s;}
   .ulink:hover{color:var(--ink);}
   .sep{color:var(--ink-3);font-size:13px;}
-  .panel{margin-top:22px;}
+  .panel{scroll-margin-top:6vh;padding-bottom:9vh;}
   .panel .why-body{max-width:64ch;margin:0 auto;font-size:15px;line-height:1.72;color:var(--ink-2);text-align:left;}
   .panel .why-body p{margin-bottom:15px;} .panel .why-body p:last-child{margin-bottom:0;}
   .panel .why-body h4{font-size:15px;font-weight:600;color:var(--ink);margin:24px 0 8px;}
@@ -191,13 +192,16 @@
     </div>
   </main>
 
-  <section class="ctas">
+  <div class="ctas">
     <div class="ctalinks">
       <button type="button" class="ulink" onclick="togglePanel('why')">Why us?</button>
       <span class="sep">·</span>
       <button type="button" class="ulink" onclick="togglePanel('scan')">Free scan</button>
     </div>
+  </div>
+  </div>
 
+  <div class="panels">
     <div class="panel" id="panel-why" hidden>
       <div class="why-body">
         <h4>Why we built Pearl Wind</h4>
@@ -265,7 +269,6 @@
     </form>
     <div class="thanks" id="scanthanks" hidden>Got it - we'll run your scan and email the results. Talk soon. - Austin</div>
     </div>
-  </section>
   </div>
 
   <footer>
@@ -288,7 +291,12 @@
 
   function togglePanel(which){
     var w=document.getElementById('panel-why'), s=document.getElementById('panel-scan');
-    if(which==='why'){ s.hidden=true; w.hidden=!w.hidden; } else { w.hidden=true; s.hidden=!s.hidden; }
+    var target = which==='why' ? w : s, other = which==='why' ? s : w;
+    other.hidden = true;
+    var opening = target.hidden;
+    target.hidden = !target.hidden;
+    if(opening){ requestAnimationFrame(function(){ target.scrollIntoView({behavior:'smooth', block:'start'}); }); }
+    else { window.scrollTo({top:0, behavior:'smooth'}); }
   }
   // Free-scan form -> emails the lead to you (via Web3Forms). Needs your access key above.
   var sf=document.getElementById('scanform');
