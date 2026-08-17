@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/p/:slug", "destination": "https://pearl-wind.onrender.com/p/:slug" },
+    { "source": "/sitemap-pages.xml", "destination": "https://pearl-wind.onrender.com/sitemap-pages.xml" }
+  ]
+}
