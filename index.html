@@ -331,7 +331,27 @@
         .catch(function(){ btn.textContent='Try again'; btn.disabled=false; });
     });
   }
-  wireForm('scanform','scanthanks');
+  // The free-scan form hits the app's funnel endpoint (real tier-0 scan + emailed report),
+  // not Web3Forms. The report arrives by email.
+  function wireScan(){
+    var f=document.getElementById('scanform'); if(!f) return;
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn=f.querySelector('button');
+      btn.textContent='Scanning…'; btn.disabled=true;
+      var fd=new FormData(f);
+      fetch('https://pearl-wind.onrender.com/api/funnel/scan',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({email:fd.get('email'), brand:fd.get('brand'), website:fd.get('website')})
+      }).then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+        .then(function(res){
+          if(res.ok){ f.hidden=true; var t=document.getElementById('scanthanks'); if(t) t.hidden=false; }
+          else { btn.textContent=(res.j&&res.j.error)?res.j.error:'Try again'; btn.disabled=false; }
+        })
+        .catch(function(){ btn.textContent='Try again'; btn.disabled=false; });
+    });
+  }
+  wireScan();
   wireForm('heroform','herothanks');
 </script>
 
