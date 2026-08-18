@@ -69,14 +69,16 @@
   .herowrap{position:relative;overflow:hidden}
   .hero{text-align:center;padding:120px 0 60px;position:relative;z-index:2}
   .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.8vw,64px);
-    letter-spacing:-.02em;line-height:1.05;margin:0 auto 22px;max-width:18ch}
+    letter-spacing:-.02em;line-height:1.05;margin:0 auto 22px;max-width:21ch;
+    text-wrap:balance}
   .hero .sub{color:var(--ink2);font-size:17px;max-width:46ch;margin:0 auto 30px}
   .hero .cta{margin-bottom:52px}
   .hero .cta .btn{padding:13px 24px;font-size:15px}
-  /* the scan box — Exa's hero demo box, except ours actually runs the product */
-  .scanbox{max-width:660px;margin:0 auto;background:var(--bg);border:1px solid var(--line);
+  /* the scan box — Exa's hero demo box, except ours actually runs the product.
+     Two parts like theirs: the input row on top, the PRODUCT (Ed's briefing) below. */
+  .scanbox{max-width:760px;margin:0 auto;background:var(--bg);border:1px solid var(--line);
     border-radius:16px;box-shadow:0 14px 50px rgba(20,20,20,.10);padding:12px;position:relative;
-    z-index:2}
+    z-index:2;text-align:left}
   .scanrow{display:flex;gap:8px;flex-wrap:wrap}
   .scanrow input{flex:1;min-width:170px;border:0;outline:none;font-family:var(--sans);
     font-size:15px;padding:11px 12px;color:var(--ink);background:transparent}
@@ -88,15 +90,75 @@
     text-transform:uppercase}
   .scanthanks{display:none;padding:18px 14px;text-align:center;font-size:15px;color:var(--ink)}
   .scanthanks b{color:var(--win)}
-  /* scattered tiles */
+  /* the demo briefing inside the scanbox — what a customer actually sees */
+  .edemo{margin-top:10px;border-top:1px solid var(--line);padding:14px 10px 6px}
+  .edemo-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--ink3);
+    text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .edemo-tag .live{width:7px;height:7px;border-radius:50%;background:var(--cobalt);
+    animation:edpulse 1.8s infinite}
+  @keyframes edpulse{0%{box-shadow:0 0 0 0 rgba(29,59,240,.35)}70%{box-shadow:0 0 0 7px transparent}
+    100%{box-shadow:0 0 0 0 transparent}}
+  .edemo-top{display:flex;gap:18px;align-items:flex-start}
+  .edemo-face{flex-shrink:0;padding-top:2px}
+  .edemo-h{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:-.015em;
+    line-height:1.15;margin:6px 0 6px}
+  .edemo-say{font-size:13px;color:var(--ink2);line-height:1.6;max-width:52ch;margin:0}
+  .edemo-stats{display:flex;border:1px solid var(--line);border-radius:10px;margin-top:14px;
+    overflow:hidden}
+  .edemo-stats .s{flex:1;padding:10px 14px;border-right:1px solid var(--line)}
+  .edemo-stats .s:last-child{border-right:0}
+  .edemo-stats .n{font-family:var(--mono);font-size:17px;font-weight:500}
+  .edemo-stats .n.fraud{color:var(--fraud)} .edemo-stats .n.win{color:var(--win)}
+  .edemo-stats .l{font-size:10.5px;color:var(--ink3);margin-top:1px}
+  .edemo-need{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;
+    background:var(--cobalt-pale);border:1px solid #cdd9f7;border-radius:10px;
+    padding:10px 14px;font-size:13px}
+  .edemo-need .dom{font-family:var(--mono);font-weight:600}
+  .edemo-need .acts{margin-left:auto;display:flex;gap:6px}
+  .edemo-need .btn{padding:7px 12px;font-size:12px;border-radius:6px}
+  /* scattered tiles — bigger, painterly, a few carry evidence */
   .tiles{position:absolute;inset:0;pointer-events:none;z-index:1}
-  .tile{position:absolute;border-radius:6px}
-  .tile.img{background:linear-gradient(140deg,#7fd0e8 0%,#3f78e8 40%,#9fe8c8 100%);opacity:.9}
-  .tile.img.b{background:linear-gradient(160deg,#2c50ef 0%,#7ea0f5 60%,#d6e3fb 100%)}
+  .tile{position:absolute;border-radius:8px}
+  .tile.img{background:linear-gradient(140deg,#7fd0e8 0%,#3f78e8 45%,#9fe8c8 100%);opacity:.92}
+  .tile.img.b{background:linear-gradient(160deg,#2c50ef 0%,#7ea0f5 55%,#d6e3fb 100%)}
   .tile.img.c{background:linear-gradient(120deg,#a8e6d8 0%,#57b7e8 55%,#2b53e8 100%)}
+  .tile.img.d{background:linear-gradient(155deg,#cfeee2 0%,#7cc9df 40%,#4a72ea 100%)}
+  .tile.img.e{background:linear-gradient(115deg,#e3f0fb 0%,#93b3f2 50%,#274fe9 100%)}
+  .tile.img::after{content:"";position:absolute;inset:0;border-radius:8px;opacity:.4;
+    background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.85), transparent 55%)}
   .tile.grid{background:#fff;border:1px solid var(--line);display:grid;place-items:center;
     font-family:var(--mono);font-size:9px;color:var(--cobalt);letter-spacing:2px}
+  .tile.ev{background:#fff;border:1px solid var(--line);overflow:hidden;
+    box-shadow:0 8px 24px rgba(20,20,20,.07)}
+  .tile.ev .t{height:58%;background:linear-gradient(150deg,#2c50ef 0%,#6f92f4 55%,#b9ccf9 100%)}
+  .tile.ev .b{padding:6px 8px;font-family:var(--mono);font-size:8px;letter-spacing:.08em;
+    color:var(--ink2);display:flex;align-items:center;gap:5px}
+  .tile.ev .b::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--fraud);
+    flex-shrink:0}
   @media (max-width:1100px){.tiles{display:none}}
+
+  /* the findings ticker — our version of the client-logo strip, told honestly:
+     these are the FAKES Ed confirmed, not customer endorsements */
+  .ticker{padding:34px 0 10px;position:relative;z-index:2;overflow:hidden}
+  .ticker-head{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+    color:var(--ink3);text-transform:uppercase;margin-bottom:18px}
+  .ticker-mask{overflow:hidden;position:relative;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .ticker-track{display:flex;gap:14px;width:max-content;animation:tick 42s linear infinite}
+  .ticker-mask:hover .ticker-track{animation-play-state:paused}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.ticker-track{animation:none;flex-wrap:wrap;
+    width:auto;justify-content:center}}
+  .tk-item{display:flex;align-items:center;gap:10px;border:1px solid var(--line);
+    border-radius:999px;background:#fff;padding:9px 16px;white-space:nowrap}
+  .tk-item .d{font-family:var(--mono);font-size:13px;font-weight:500}
+  .tk-chip{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;font-weight:500}
+  .tk-chip.red{background:#fbeae8;color:var(--fraud)}
+  .tk-chip.win{background:#e9f4ec;color:var(--win)}
+  .ticker-note{text-align:center;font-size:11.5px;color:var(--ink3);margin-top:14px;
+    padding:0 24px}
 
   /* logos / credential strip */
   .cred{padding:26px 0 64px;text-align:center;font-size:13.5px;color:var(--ink3);
@@ -275,19 +337,23 @@
 <!-- hero -->
 <div class="herowrap">
   <div class="tiles" aria-hidden="true">
-    <div class="tile img"   style="left:2%;top:120px;width:72px;height:72px"></div>
-    <div class="tile img b" style="left:6.5%;top:214px;width:56px;height:56px"></div>
-    <div class="tile grid"  style="left:1%;top:250px;width:64px;height:64px">4 1 0<br>0 2 8</div>
-    <div class="tile img c" style="left:9%;top:330px;width:84px;height:84px"></div>
-    <div class="tile img"   style="left:3%;top:440px;width:60px;height:60px"></div>
-    <div class="tile grid"  style="left:10%;top:470px;width:52px;height:52px">3 1</div>
-    <div class="tile img b" style="left:5%;top:560px;width:76px;height:76px"></div>
-    <div class="tile img c" style="right:2%;top:130px;width:68px;height:68px"></div>
-    <div class="tile grid"  style="right:8%;top:200px;width:60px;height:60px">0 7<br>1 9</div>
-    <div class="tile img"   style="right:4%;top:300px;width:88px;height:88px"></div>
-    <div class="tile img b" style="right:10%;top:410px;width:56px;height:56px"></div>
-    <div class="tile img c" style="right:1.5%;top:460px;width:72px;height:72px"></div>
-    <div class="tile grid"  style="right:6%;top:560px;width:64px;height:64px">2 4 6</div>
+    <div class="tile img"   style="left:1.5%;top:110px;width:96px;height:96px"></div>
+    <div class="tile img b" style="left:7.5%;top:236px;width:72px;height:72px"></div>
+    <div class="tile grid"  style="left:1%;top:262px;width:78px;height:78px">4 1 0<br>0 2 8</div>
+    <div class="tile img c" style="left:8.5%;top:352px;width:104px;height:104px"></div>
+    <div class="tile ev"    style="left:1.5%;top:392px;width:88px;height:74px">
+      <div class="t"></div><div class="b">CAPTURED</div></div>
+    <div class="tile img d" style="left:4%;top:500px;width:80px;height:80px"></div>
+    <div class="tile grid"  style="left:11%;top:520px;width:56px;height:56px">3 1</div>
+    <div class="tile img e" style="left:1%;top:614px;width:92px;height:92px"></div>
+    <div class="tile img c" style="right:1.5%;top:118px;width:88px;height:88px"></div>
+    <div class="tile grid"  style="right:9%;top:212px;width:66px;height:66px">0 7<br>1 9</div>
+    <div class="tile img"   style="right:3.5%;top:268px;width:108px;height:108px"></div>
+    <div class="tile ev"    style="right:10.5%;top:398px;width:92px;height:76px">
+      <div class="t"></div><div class="b">LIVE FAKE</div></div>
+    <div class="tile img b" style="right:2%;top:428px;width:72px;height:72px"></div>
+    <div class="tile img d" style="right:7%;top:532px;width:96px;height:96px"></div>
+    <div class="tile img e" style="right:1%;top:648px;width:68px;height:68px"></div>
   </div>
   <div class="wrap">
     <div class="hero">
@@ -303,12 +369,70 @@
         </div>
         <div class="scanthanks" id="scanthanks"><b>Scan running.</b> Ed will email your report
           in a few minutes — exact counts, nothing inflated.</div>
+        <!-- the product itself, right in the hero (Exa-style): Ed's briefing, demo data -->
+        <div class="edemo" aria-label="Demo of Ed's briefing">
+          <div class="edemo-tag"><span class="live"></span>WHAT CUSTOMERS SEE · ED'S BRIEFING
+            · DEMO DATA</div>
+          <div class="edemo-top">
+            <div class="edemo-face">
+              <svg id="edface" width="84" height="51" viewBox="0 0 200 120" aria-label="Ed">
+                <g class="edeye" style="transform-box:fill-box;transform-origin:center;transition:transform .14s">
+                  <circle cx="64" cy="60" r="27" fill="none" stroke="#171717" stroke-width="1" opacity=".28"/>
+                  <circle cx="64" cy="60" r="20" fill="#1d3bf0" stroke="#171717" stroke-width="3"/>
+                  <circle class="edpupil" cx="64" cy="60" r="8.5" fill="#fff"/>
+                </g>
+                <g class="edeye" style="transform-box:fill-box;transform-origin:center;transition:transform .14s">
+                  <circle cx="136" cy="60" r="27" fill="none" stroke="#171717" stroke-width="1" opacity=".28"/>
+                  <circle cx="136" cy="60" r="20" fill="#1d3bf0" stroke="#171717" stroke-width="3"/>
+                  <circle class="edpupil" cx="136" cy="60" r="8.5" fill="#fff"/>
+                </g>
+                <path d="M84 60 L116 60" fill="none" stroke="#171717" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="edemo-h">2 fakes are live, and I'm on them.</div>
+              <p class="edemo-say">I found and confirmed 2 stores impersonating you. Tell me
+              which to take down and I'll file it as your agent - that's the only thing that
+              needs you.</p>
+            </div>
+          </div>
+          <div class="edemo-stats">
+            <div class="s"><div class="n">358</div><div class="l">swept this week</div></div>
+            <div class="s"><div class="n fraud">2</div><div class="l">confirmed live</div></div>
+            <div class="s"><div class="n win">1</div><div class="l">takedown in progress</div></div>
+          </div>
+          <div class="edemo-need">
+            <span>Take down <span class="dom">yourbrand-outlet[.]shop</span>?</span>
+            <span class="acts"><span class="btn black">Authorize Ed to act</span>
+              <span class="btn grey">Not mine</span></span>
+          </div>
+        </div>
         <div class="scanfoot">
           <span class="k">Free · no card · report by email</span>
           <span class="k" style="margin-left:auto">First sweep ≈ 3 minutes</span>
         </div>
       </form>
     </div>
+  </div>
+  <!-- the honest version of a client-logo strip: real fakes Ed confirmed, defanged.
+       The brands these target are the fraud's victims — not customers, not endorsers. -->
+  <div class="ticker" aria-label="Recently confirmed impersonations">
+    <div class="ticker-head">From Ed's recent sweeps · real confirmed fakes · written defanged</div>
+    <div class="ticker-mask">
+      <div class="ticker-track" id="tickertrack">
+        <span class="tk-item"><span class="d">mycuyana[.]shop</span><span class="tk-chip red">confirmed</span></span>
+        <span class="tk-item"><span class="d">cuyanastudio[.]shop</span><span class="tk-chip win">takedown filed</span></span>
+        <span class="tk-item"><span class="d">cuyanashop[.]shop</span><span class="tk-chip red">confirmed</span></span>
+        <span class="tk-item"><span class="d">buycuyana[.]shop</span><span class="tk-chip win">takedown filed</span></span>
+        <span class="tk-item"><span class="d">cuyanacollection[.]shop</span><span class="tk-chip red">confirmed</span></span>
+        <span class="tk-item"><span class="d">shopbrooklinen[.]shop</span><span class="tk-chip red">confirmed</span></span>
+      </div>
+    </div>
+    <div class="ticker-note">Each one confirmed by a human, evidence frozen at capture.
+      The brands these fakes imitate are the victims of the fraud shown — listing here is
+      detection, not endorsement.</div>
+  </div>
+  <div class="wrap">
     <div class="cred">Built by a founder who ran fraud detection at <b>three Fortune 50
       companies</b> — now hunting the fakes targeting DTC brands.</div>
   </div>
@@ -533,6 +657,45 @@
   // Until then it honestly routes to the free scan (never a dead button).
   var CHECKOUT_47 = "https://buy.stripe.com/test_14A00jdxsbwq9ZP58E5c400";
   if (CHECKOUT_47) { var b=document.getElementById('buy47'); b.href=CHECKOUT_47; }
+
+  // Findings ticker: duplicate the items once so translateX(-50%) loops seamlessly.
+  (function(){
+    var t=document.getElementById('tickertrack'); if(!t) return;
+    t.innerHTML += t.innerHTML;
+  })();
+
+  // Demo Ed is alive: pearls follow the cursor and he blinks (skipped for reduced motion).
+  (function(){
+    var svg=document.getElementById('edface'); if(!svg) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var pupils=svg.querySelectorAll('.edpupil');
+    var tx=0, ty=-2, cx=0, cy=-2, MAX=8;
+    document.addEventListener('mousemove', function(e){
+      var r=svg.getBoundingClientRect();
+      var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+      var d=Math.hypot(dx,dy)||1;
+      tx=Math.max(-MAX,Math.min(MAX,dx/d*MAX));
+      ty=Math.max(-MAX,Math.min(MAX,dy/d*MAX));
+    });
+    setInterval(function(){ // idle drift when the mouse is still
+      tx=(Math.random()*2-1)*5; ty=(Math.random()*2-1)*4-1;
+    }, 2600);
+    (function tick(){
+      cx+=(tx-cx)*0.12; cy+=(ty-cy)*0.12;
+      pupils.forEach(function(p){
+        p.setAttribute('transform','translate('+cx.toFixed(2)+','+cy.toFixed(2)+')');
+      });
+      requestAnimationFrame(tick);
+    })();
+    var eyes=svg.querySelectorAll('.edeye');
+    (function blink(){
+      setTimeout(function(){
+        eyes.forEach(function(g){ g.style.transform='scaleY(.1)'; });
+        setTimeout(function(){ eyes.forEach(function(g){ g.style.transform='scaleY(1)'; }); }, 300);
+        blink();
+      }, 2600+Math.random()*2600);
+    })();
+  })();
 </script>
 
 </body>
