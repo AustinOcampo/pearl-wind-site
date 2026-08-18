@@ -90,8 +90,8 @@
     text-transform:uppercase}
   .scanthanks{display:none;padding:18px 14px;text-align:center;font-size:15px;color:var(--ink)}
   .scanthanks b{color:var(--win)}
-  /* the demo briefing inside the scanbox — what a customer actually sees */
-  .edemo{margin-top:10px;border-top:1px solid var(--line);padding:14px 10px 6px}
+  /* the live sweep inside the scanbox — Ed working, findings appearing. One display, one job. */
+  .edemo{margin-top:10px;border-top:1px solid var(--line);padding:14px 10px 8px}
   .edemo-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--ink3);
     text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
   .edemo-tag .live{width:7px;height:7px;border-radius:50%;background:var(--cobalt);
@@ -99,66 +99,92 @@
   @keyframes edpulse{0%{box-shadow:0 0 0 0 rgba(29,59,240,.35)}70%{box-shadow:0 0 0 7px transparent}
     100%{box-shadow:0 0 0 0 transparent}}
   .edemo-top{display:flex;gap:18px;align-items:flex-start}
-  .edemo-face{flex-shrink:0;padding-top:2px}
-  .edemo-h{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:-.015em;
-    line-height:1.15;margin:6px 0 6px}
-  .edemo-say{font-size:13px;color:var(--ink2);line-height:1.6;max-width:52ch;margin:0}
-  .edemo-stats{display:flex;border:1px solid var(--line);border-radius:10px;margin-top:14px;
-    overflow:hidden}
-  .edemo-stats .s{flex:1;padding:10px 14px;border-right:1px solid var(--line)}
-  .edemo-stats .s:last-child{border-right:0}
-  .edemo-stats .n{font-family:var(--mono);font-size:17px;font-weight:500}
-  .edemo-stats .n.fraud{color:var(--fraud)} .edemo-stats .n.win{color:var(--win)}
-  .edemo-stats .l{font-size:10.5px;color:var(--ink3);margin-top:1px}
-  .edemo-need{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;
-    background:var(--cobalt-pale);border:1px solid #cdd9f7;border-radius:10px;
-    padding:10px 14px;font-size:13px}
-  .edemo-need .dom{font-family:var(--mono);font-weight:600}
-  .edemo-need .acts{margin-left:auto;display:flex;gap:6px}
-  .edemo-need .btn{padding:7px 12px;font-size:12px;border-radius:6px}
-  /* scattered tiles — bigger, painterly, a few carry evidence */
+  .edemo-face{flex-shrink:0;padding-top:4px}
+  .scanline{font-family:var(--mono);font-size:12.5px;color:var(--ink2);letter-spacing:.02em;
+    padding:6px 0 2px;min-height:24px}
+  .scanline .ct{color:var(--ink);font-weight:600}
+  .scanfinds{margin-top:8px}
+  .sfind{display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid var(--line);
+    font-size:13px;animation:sfin .45s ease}
+  @keyframes sfin{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  .sfind .d{font-family:var(--mono);font-weight:600;font-size:13px}
+  .sfind .w{color:var(--ink3);font-size:12px}
+  .sfind .chip{margin-left:auto}
+  .chip.softred{background:#fbeae8;color:var(--fraud)}
+  .chip.softwin{background:#e9f4ec;color:var(--win)}
+  /* scattered tiles — the Exa collage: painterly cloudscapes in loose columns,
+     number-grid tiles, and a blurred gradient strip hugging each edge */
   .tiles{position:absolute;inset:0;pointer-events:none;z-index:1}
-  .tile{position:absolute;border-radius:8px}
-  .tile.img{background:linear-gradient(140deg,#7fd0e8 0%,#3f78e8 45%,#9fe8c8 100%);opacity:.92}
-  .tile.img.b{background:linear-gradient(160deg,#2c50ef 0%,#7ea0f5 55%,#d6e3fb 100%)}
-  .tile.img.c{background:linear-gradient(120deg,#a8e6d8 0%,#57b7e8 55%,#2b53e8 100%)}
-  .tile.img.d{background:linear-gradient(155deg,#cfeee2 0%,#7cc9df 40%,#4a72ea 100%)}
-  .tile.img.e{background:linear-gradient(115deg,#e3f0fb 0%,#93b3f2 50%,#274fe9 100%)}
-  .tile.img::after{content:"";position:absolute;inset:0;border-radius:8px;opacity:.4;
-    background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.85), transparent 55%)}
-  .tile.grid{background:#fff;border:1px solid var(--line);display:grid;place-items:center;
-    font-family:var(--mono);font-size:9px;color:var(--cobalt);letter-spacing:2px}
-  .tile.ev{background:#fff;border:1px solid var(--line);overflow:hidden;
-    box-shadow:0 8px 24px rgba(20,20,20,.07)}
-  .tile.ev .t{height:58%;background:linear-gradient(150deg,#2c50ef 0%,#6f92f4 55%,#b9ccf9 100%)}
-  .tile.ev .b{padding:6px 8px;font-family:var(--mono);font-size:8px;letter-spacing:.08em;
-    color:var(--ink2);display:flex;align-items:center;gap:5px}
-  .tile.ev .b::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--fraud);
-    flex-shrink:0}
+  .edge{position:absolute;top:60px;bottom:40px;width:26px;filter:blur(10px);opacity:.75;
+    border-radius:12px}
+  .edge.l{left:-8px;background:linear-gradient(180deg,#9fd8ea,#c8b9ee 30%,#7fa8f0 55%,#a8e6d0 80%,#88b8ee)}
+  .edge.r{right:-8px;background:linear-gradient(180deg,#88b8ee,#a8e6d0 25%,#7fa8f0 50%,#c8b9ee 75%,#9fd8ea)}
+  .tile{position:absolute;border-radius:8px;overflow:hidden}
+  .tile.img{opacity:.95}
+  .tile.img::after{content:"";position:absolute;inset:0;opacity:.5;
+    background:radial-gradient(ellipse at 28% 22%, rgba(255,255,255,.9), transparent 55%)}
+  .tile.img.a{background:
+    radial-gradient(70% 55% at 70% 30%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(60% 70% at 25% 75%, #9fe0c9dd, transparent 65%),
+    linear-gradient(150deg,#bfe3ee 0%,#7fb6ea 45%,#4a72ea 100%)}
+  .tile.img.b{background:
+    radial-gradient(55% 45% at 30% 25%, rgba(255,255,255,.8), transparent 55%),
+    radial-gradient(70% 60% at 80% 75%, #2c50efd8, transparent 70%),
+    linear-gradient(160deg,#d6e3fb 0%,#7ea0f5 55%,#2c50ef 100%)}
+  .tile.img.c{background:
+    radial-gradient(65% 50% at 75% 20%, rgba(255,255,255,.75), transparent 60%),
+    radial-gradient(80% 65% at 20% 80%, #57b7e8cc, transparent 70%),
+    linear-gradient(120deg,#d8f2e8 0%,#a8e6d8 35%,#57b7e8 70%,#2b53e8 100%)}
+  .tile.img.d{background:
+    radial-gradient(60% 60% at 65% 70%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(75% 55% at 25% 20%, #cfeee2e6, transparent 65%),
+    linear-gradient(155deg,#cfeee2 0%,#7cc9df 45%,#4a72ea 100%)}
+  .tile.img.e{background:
+    radial-gradient(50% 45% at 70% 30%, rgba(255,255,255,.85), transparent 55%),
+    radial-gradient(70% 70% at 30% 75%, #93b3f2dd, transparent 70%),
+    linear-gradient(115deg,#e3f0fb 0%,#93b3f2 55%,#274fe9 100%)}
+  .tile.grid{background:linear-gradient(150deg,#eaf3fd,#cfe0fa);border:1px solid #c4d6f5;
+    display:grid;grid-template-columns:repeat(3,1fr);place-items:center;
+    font-family:var(--mono);font-size:11px;color:var(--cobalt);padding:6px}
+  .tile.grid.q{grid-template-columns:repeat(2,1fr);font-size:14px}
+  .tile.solid{background:linear-gradient(165deg,#2c50ef,#4a6af2);color:#cdd9fb;
+    font-family:var(--mono);font-size:8px;display:flex;flex-direction:column;
+    justify-content:space-between;padding:8px;letter-spacing:.06em}
+  .tile.solid::after{content:"";position:absolute;inset:-20% -30%;opacity:.35;
+    background:radial-gradient(circle at 120% 50%, transparent 40%, rgba(255,255,255,.5) 41%,
+      transparent 42%, transparent 52%, rgba(255,255,255,.4) 53%, transparent 54%,
+      transparent 64%, rgba(255,255,255,.3) 65%, transparent 66%)}
   @media (max-width:1100px){.tiles{display:none}}
+  @media (max-width:640px){
+    .sfind .w{display:none}
+    .sfind{flex-wrap:wrap}
+    .edemo-top{flex-direction:column;gap:8px}
+    .edemo-face svg{width:64px;height:38px}
+  }
 
-  /* the findings ticker — our version of the client-logo strip, told honestly:
-     these are the FAKES Ed confirmed, not customer endorsements */
-  .ticker{padding:34px 0 10px;position:relative;z-index:2;overflow:hidden}
-  .ticker-head{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
-    color:var(--ink3);text-transform:uppercase;margin-bottom:18px}
-  .ticker-mask{overflow:hidden;position:relative;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-  .ticker-track{display:flex;gap:14px;width:max-content;animation:tick 42s linear infinite}
-  .ticker-mask:hover .ticker-track{animation-play-state:paused}
-  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media (prefers-reduced-motion:reduce){.ticker-track{animation:none;flex-wrap:wrap;
-    width:auto;justify-content:center}}
-  .tk-item{display:flex;align-items:center;gap:10px;border:1px solid var(--line);
-    border-radius:999px;background:#fff;padding:9px 16px;white-space:nowrap}
-  .tk-item .d{font-family:var(--mono);font-size:13px;font-weight:500}
-  .tk-chip{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
-    padding:3px 8px;border-radius:999px;font-weight:500}
-  .tk-chip.red{background:#fbeae8;color:var(--fraud)}
-  .tk-chip.win{background:#e9f4ec;color:var(--win)}
-  .ticker-note{text-align:center;font-size:11.5px;color:var(--ink3);margin-top:14px;
-    padding:0 24px}
+  /* ---- the scale band (Exa's research section): copy left, the candidate-space
+     cloud right, staggered stat cards below ---- */
+  .scale{position:relative;padding:110px 0 20px;overflow:hidden}
+  .scale-grid{display:grid;grid-template-columns:44% 56%;align-items:center;gap:0;
+    position:relative}
+  .scale-copy h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.8vw,46px);
+    letter-spacing:-.015em;line-height:1.1;margin:12px 0 18px;max-width:15ch}
+  .scale-copy p{color:var(--ink2);font-size:15px;max-width:42ch;line-height:1.7;margin:0 0 30px}
+  .cloudwrap{position:relative;height:520px}
+  .cloudwrap canvas{position:absolute;inset:0;width:100%;height:100%}
+  .cloudchip{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    padding:4px 9px;border-radius:4px;background:var(--cobalt);color:#fff;white-space:nowrap}
+  .cloudchip.out{background:#fff;color:var(--ink2);border:1px solid var(--line2)}
+  .scalestats{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;max-width:980px;
+    margin-top:-40px;position:relative;z-index:2}
+  .sstat{border:1px solid var(--line);border-radius:10px;background:#fff;padding:30px 30px 26px}
+  .sstat:nth-child(2){margin-top:44px}
+  .sstat:nth-child(3){margin-top:88px}
+  .sstat .n{font-family:var(--mono);font-size:clamp(34px,4vw,52px);font-weight:500;
+    letter-spacing:-.02em;line-height:1}
+  .sstat .n small{font-size:.36em;letter-spacing:.14em;font-weight:500;margin-left:10px;
+    text-transform:uppercase}
+  .sstat .l{color:var(--ink2);font-size:13px;margin-top:14px;max-width:30ch;line-height:1.65}
 
   /* logos / credential strip */
   .cred{padding:26px 0 64px;text-align:center;font-size:13.5px;color:var(--ink3);
@@ -212,27 +238,6 @@
     margin-bottom:14px}
   .th h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:0 0 10px}
   .th p{margin:0;font-size:14px;color:var(--ink2);line-height:1.65}
-
-  /* stats band with dot field */
-  .statband{position:relative;padding:96px 0;overflow:hidden}
-  .dots{position:absolute;right:-140px;top:-120px;width:640px;height:640px;opacity:.5;
-    pointer-events:none;
-    background-image:radial-gradient(circle at center,transparent 30%,transparent 100%),
-      radial-gradient(#4a63f2 1.1px, transparent 1.3px);
-    background-size:100% 100%, 11px 11px;
-    -webkit-mask-image:radial-gradient(circle at 60% 40%, #000 0%, transparent 62%);
-    mask-image:radial-gradient(circle at 60% 40%, #000 0%, transparent 62%)}
-  .statband .lab{position:absolute;right:220px;top:250px;z-index:2}
-  .stats{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:16px;position:relative;z-index:2;
-    max-width:900px}
-  .stat{border:1px solid var(--line);border-radius:10px;background:#fff;padding:28px 28px 24px}
-  .stat:nth-child(2){margin-top:34px}
-  .stat:nth-child(3){margin-top:68px}
-  .stat .n{font-family:var(--mono);font-size:clamp(30px,3.6vw,42px);font-weight:500;
-    letter-spacing:-.02em}
-  .stat .n small{font-size:.42em;letter-spacing:.14em;font-weight:500;margin-left:9px;
-    text-transform:uppercase}
-  .stat .l{color:var(--ink2);font-size:13px;margin-top:12px;max-width:30ch;line-height:1.6}
 
   /* pricing */
   .wedge{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--cobalt);
@@ -309,8 +314,10 @@
     .three,.tiers{grid-template-columns:1fr}
     .th,.tier{border-right:0;border-bottom:1px solid var(--line)}
     .th:last-child,.tier:last-child{border-bottom:0}
-    .stats{grid-template-columns:1fr}
-    .stat:nth-child(2),.stat:nth-child(3){margin-top:0}
+    .scale-grid{grid-template-columns:1fr}
+    .cloudwrap{height:300px;margin-top:12px}
+    .scalestats{grid-template-columns:1fr;margin-top:16px}
+    .sstat:nth-child(2),.sstat:nth-child(3){margin-top:0}
     .cols4,.fcols{grid-template-columns:1fr 1fr}
     .hero{padding:72px 0 44px}
   }
@@ -337,23 +344,35 @@
 <!-- hero -->
 <div class="herowrap">
   <div class="tiles" aria-hidden="true">
-    <div class="tile img"   style="left:1.5%;top:110px;width:96px;height:96px"></div>
-    <div class="tile img b" style="left:7.5%;top:236px;width:72px;height:72px"></div>
-    <div class="tile grid"  style="left:1%;top:262px;width:78px;height:78px">4 1 0<br>0 2 8</div>
-    <div class="tile img c" style="left:8.5%;top:352px;width:104px;height:104px"></div>
-    <div class="tile ev"    style="left:1.5%;top:392px;width:88px;height:74px">
-      <div class="t"></div><div class="b">CAPTURED</div></div>
-    <div class="tile img d" style="left:4%;top:500px;width:80px;height:80px"></div>
-    <div class="tile grid"  style="left:11%;top:520px;width:56px;height:56px">3 1</div>
-    <div class="tile img e" style="left:1%;top:614px;width:92px;height:92px"></div>
-    <div class="tile img c" style="right:1.5%;top:118px;width:88px;height:88px"></div>
-    <div class="tile grid"  style="right:9%;top:212px;width:66px;height:66px">0 7<br>1 9</div>
-    <div class="tile img"   style="right:3.5%;top:268px;width:108px;height:108px"></div>
-    <div class="tile ev"    style="right:10.5%;top:398px;width:92px;height:76px">
-      <div class="t"></div><div class="b">LIVE FAKE</div></div>
-    <div class="tile img b" style="right:2%;top:428px;width:72px;height:72px"></div>
-    <div class="tile img d" style="right:7%;top:532px;width:96px;height:96px"></div>
-    <div class="tile img e" style="right:1%;top:648px;width:68px;height:68px"></div>
+    <div class="edge l"></div>
+    <div class="edge r"></div>
+    <!-- left field: three loose columns, Exa-style -->
+    <div class="tile img a" style="left:2.2%;top:96px;width:88px;height:88px"></div>
+    <div class="tile img b" style="left:2.2%;top:196px;width:88px;height:88px"></div>
+    <div class="tile grid"  style="left:1.4%;top:330px;width:96px;height:96px">
+      <span>0</span><span>1</span><span>8</span><span>0</span><span>1</span><span>7</span>
+      <span>0</span><span>1</span><span></span></div>
+    <div class="tile img c" style="left:2.2%;top:474px;width:88px;height:88px"></div>
+    <div class="tile img d" style="left:2.2%;top:574px;width:88px;height:88px"></div>
+    <div class="tile img e" style="left:8.6%;top:150px;width:76px;height:76px"></div>
+    <div class="tile img c" style="left:8.6%;top:262px;width:76px;height:76px"></div>
+    <div class="tile img a" style="left:8.6%;top:452px;width:76px;height:76px"></div>
+    <div class="tile solid" style="left:13.6%;top:352px;width:80px;height:80px">
+      <span>100%</span><span>90%</span><span>80%</span></div>
+    <div class="tile img b" style="left:14.2%;top:544px;width:64px;height:64px"></div>
+    <!-- right field -->
+    <div class="tile img d" style="right:2.2%;top:104px;width:88px;height:88px"></div>
+    <div class="tile img a" style="right:2.2%;top:204px;width:88px;height:88px"></div>
+    <div class="tile grid q" style="right:1.6%;top:336px;width:92px;height:92px">
+      <span>4</span><span>3</span><span>1</span><span>2</span></div>
+    <div class="tile img b" style="right:2.2%;top:478px;width:88px;height:88px"></div>
+    <div class="tile img e" style="right:2.2%;top:578px;width:88px;height:88px"></div>
+    <div class="tile img c" style="right:8.8%;top:158px;width:76px;height:76px"></div>
+    <div class="tile img e" style="right:8.8%;top:414px;width:76px;height:76px"></div>
+    <div class="tile img d" style="right:8.8%;top:520px;width:70px;height:70px"></div>
+    <div class="tile grid"  style="right:14%;top:250px;width:70px;height:70px">
+      <span>0</span><span>7</span><span></span><span>1</span><span>9</span><span></span></div>
+    <div class="tile img a" style="right:14.6%;top:560px;width:60px;height:60px"></div>
   </div>
   <div class="wrap">
     <div class="hero">
@@ -369,10 +388,9 @@
         </div>
         <div class="scanthanks" id="scanthanks"><b>Scan running.</b> Ed will email your report
           in a few minutes — exact counts, nothing inflated.</div>
-        <!-- the product itself, right in the hero (Exa-style): Ed's briefing, demo data -->
-        <div class="edemo" aria-label="Demo of Ed's briefing">
-          <div class="edemo-tag"><span class="live"></span>WHAT CUSTOMERS SEE · ED'S BRIEFING
-            · DEMO DATA</div>
+        <!-- the product itself, in the hero: Ed sweeping live, findings appearing -->
+        <div class="edemo" aria-label="Demo of Ed sweeping">
+          <div class="edemo-tag"><span class="live"></span>ED, SWEEPING · DEMO</div>
           <div class="edemo-top">
             <div class="edemo-face">
               <svg id="edface" width="84" height="51" viewBox="0 0 200 120" aria-label="Ed">
@@ -389,22 +407,11 @@
                 <path d="M84 60 L116 60" fill="none" stroke="#171717" stroke-width="3" stroke-linecap="round"/>
               </svg>
             </div>
-            <div>
-              <div class="edemo-h">2 fakes are live, and I'm on them.</div>
-              <p class="edemo-say">I found and confirmed 2 stores impersonating you. Tell me
-              which to take down and I'll file it as your agent - that's the only thing that
-              needs you.</p>
+            <div style="flex:1;min-width:0">
+              <div class="scanline" id="scanline">SWEEPING THE LOOK-ALIKE SPACE FOR
+                yourbrand.com · <span class="ct" id="scancount">0</span> CHECKED</div>
+              <div class="scanfinds" id="scanfinds"></div>
             </div>
-          </div>
-          <div class="edemo-stats">
-            <div class="s"><div class="n">358</div><div class="l">swept this week</div></div>
-            <div class="s"><div class="n fraud">2</div><div class="l">confirmed live</div></div>
-            <div class="s"><div class="n win">1</div><div class="l">takedown in progress</div></div>
-          </div>
-          <div class="edemo-need">
-            <span>Take down <span class="dom">yourbrand-outlet[.]shop</span>?</span>
-            <span class="acts"><span class="btn black">Authorize Ed to act</span>
-              <span class="btn grey">Not mine</span></span>
           </div>
         </div>
         <div class="scanfoot">
@@ -413,26 +420,6 @@
         </div>
       </form>
     </div>
-  </div>
-  <!-- the honest version of a client-logo strip: real fakes Ed confirmed, defanged.
-       The brands these target are the fraud's victims — not customers, not endorsers. -->
-  <div class="ticker" aria-label="Recently confirmed impersonations">
-    <div class="ticker-head">From Ed's recent sweeps · real confirmed fakes · written defanged</div>
-    <div class="ticker-mask">
-      <div class="ticker-track" id="tickertrack">
-        <span class="tk-item"><span class="d">mycuyana[.]shop</span><span class="tk-chip red">confirmed</span></span>
-        <span class="tk-item"><span class="d">cuyanastudio[.]shop</span><span class="tk-chip win">takedown filed</span></span>
-        <span class="tk-item"><span class="d">cuyanashop[.]shop</span><span class="tk-chip red">confirmed</span></span>
-        <span class="tk-item"><span class="d">buycuyana[.]shop</span><span class="tk-chip win">takedown filed</span></span>
-        <span class="tk-item"><span class="d">cuyanacollection[.]shop</span><span class="tk-chip red">confirmed</span></span>
-        <span class="tk-item"><span class="d">shopbrooklinen[.]shop</span><span class="tk-chip red">confirmed</span></span>
-      </div>
-    </div>
-    <div class="ticker-note">Each one confirmed by a human, evidence frozen at capture.
-      The brands these fakes imitate are the victims of the fraud shown — listing here is
-      detection, not endorsement.</div>
-  </div>
-  <div class="wrap">
     <div class="cred">Built by a founder who ran fraud detection at <b>three Fortune 50
       companies</b> — now hunting the fakes targeting DTC brands.</div>
   </div>
@@ -494,17 +481,30 @@
   </div>
 </div>
 
-<!-- stats band -->
-<div class="statband">
-  <div class="dots" aria-hidden="true"></div>
-  <span class="chip blue lab" aria-hidden="true">ED'S SWEEP</span>
+<!-- the scale band: the look-alike space, at Exa-research scale -->
+<div class="scale">
   <div class="wrap">
-    <div class="stats">
-      <div class="stat"><div class="n">150<small>brands</small></div>
+    <div class="scale-grid">
+      <div class="scale-copy">
+        <div class="eyebrow">The look-alike space</div>
+        <h2>Every brand sits inside a cloud of almost-you.</h2>
+        <p>Typos, hyphens, swapped letters, new endings — thousands of domains that are
+        almost your name. Most are noise. A few are stores taking your customers' money.
+        Ed sweeps the whole cloud so you never have to look at it.</p>
+        <a class="btn black" href="#scan">Sweep my brand's cloud</a>
+      </div>
+      <div class="cloudwrap" aria-hidden="true">
+        <canvas id="cloud"></canvas>
+        <span class="cloudchip" style="right:16%;top:20%">THE LOOK-ALIKE SPACE</span>
+        <span class="cloudchip out" style="left:22%;bottom:24%">yourbrand.com</span>
+      </div>
+    </div>
+    <div class="scalestats">
+      <div class="sstat"><div class="n">150<small>brands</small></div>
         <div class="l">scanned in our first full sweep of DTC brands</div></div>
-      <div class="stat"><div class="n">96</div>
+      <div class="sstat"><div class="n">96</div>
         <div class="l">of them had at least one live fake store — each confirmed by a human</div></div>
-      <div class="stat"><div class="n">64<small>%</small></div>
+      <div class="sstat"><div class="n">64<small>%</small></div>
         <div class="l">of scanned brands were being impersonated and didn't know</div></div>
     </div>
   </div>
@@ -658,43 +658,108 @@
   var CHECKOUT_47 = "https://buy.stripe.com/test_14A00jdxsbwq9ZP58E5c400";
   if (CHECKOUT_47) { var b=document.getElementById('buy47'); b.href=CHECKOUT_47; }
 
-  // Findings ticker: duplicate the items once so translateX(-50%) loops seamlessly.
+  // The live sweep demo: a counter runs, findings appear, Ed's eyes sweep while he works
+  // and follow the cursor when he's done. Reduced motion gets the finished state, static.
   (function(){
-    var t=document.getElementById('tickertrack'); if(!t) return;
-    t.innerHTML += t.innerHTML;
+    var svg=document.getElementById('edface'), line=document.getElementById('scanline'),
+        ct=document.getElementById('scancount'), finds=document.getElementById('scanfinds');
+    if(!svg||!line) return;
+    var FINDS=[
+      {at:118, d:'yourbrand-outlet[.]shop', w:'your photos, 60% off', c:'confirmed', k:'softred'},
+      {at:262, d:'shopyourbrand[.]store', w:'cloned storefront', c:'confirmed', k:'softred'}
+    ];
+    var TARGET=341, DONE='SWEEP COMPLETE · <span class="ct">341</span> CHECKED · 2 CONFIRMED · VERIFIED BY A HUMAN';
+    var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scanning=false;
+    function row(f){
+      var el=document.createElement('div'); el.className='sfind';
+      el.innerHTML='<span class="d">'+f.d+'</span><span class="w">'+f.w+'</span>'+
+        '<span class="chip '+f.k+'">'+f.c+'</span>';
+      finds.appendChild(el);
+    }
+    if(reduced){ FINDS.forEach(row); line.innerHTML=DONE; }
+    else{
+      var sweep=function(){
+        scanning=true; finds.innerHTML='';
+        FINDS.forEach(function(f){ f.shown=false; });
+        line.innerHTML='SWEEPING THE LOOK-ALIKE SPACE FOR yourbrand.com · <span class="ct" id="scancount">0</span> CHECKED';
+        ct=line.querySelector('.ct');
+        var t0=performance.now(), DUR=5200;
+        (function step(now){
+          var p=Math.min(1,(now-t0)/DUR), eased=1-Math.pow(1-p,3);
+          var c=Math.round(eased*TARGET);
+          ct.textContent=c;
+          FINDS.forEach(function(f){ if(!f.shown && c>=f.at){ f.shown=true; row(f); } });
+          if(p<1) requestAnimationFrame(step);
+          else { scanning=false; line.innerHTML=DONE; setTimeout(sweep, 7000); }
+        })(performance.now());
+      };
+      sweep();
+    }
+    // the eyes
+    if(!reduced){
+      var pupils=svg.querySelectorAll('.edpupil'), eyes=svg.querySelectorAll('.edeye');
+      var tx=0, ty=-2, cx2=0, cy2=-2, MAX=8;
+      document.addEventListener('mousemove', function(e){
+        if(scanning) return;
+        var r=svg.getBoundingClientRect();
+        var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+        var d=Math.hypot(dx,dy)||1;
+        tx=Math.max(-MAX,Math.min(MAX,dx/d*MAX)); ty=Math.max(-MAX,Math.min(MAX,dy/d*MAX));
+      });
+      (function tick(now){
+        if(scanning){ tx=Math.sin((now||0)/420)*MAX; ty=0; }
+        cx2+=(tx-cx2)*0.12; cy2+=(ty-cy2)*0.12;
+        pupils.forEach(function(p){
+          p.setAttribute('transform','translate('+cx2.toFixed(2)+','+cy2.toFixed(2)+')');
+        });
+        requestAnimationFrame(tick);
+      })(0);
+      (function blink(){
+        setTimeout(function(){
+          eyes.forEach(function(g){ g.style.transform='scaleY(.1)'; });
+          setTimeout(function(){ eyes.forEach(function(g){ g.style.transform='scaleY(1)'; }); }, 300);
+          blink();
+        }, 2600+Math.random()*2600);
+      })();
+    }
   })();
 
-  // Demo Ed is alive: pearls follow the cursor and he blinks (skipped for reduced motion).
+  // The look-alike-space cloud: a dense organic particle cluster (canvas, drawn once).
   (function(){
-    var svg=document.getElementById('edface'); if(!svg) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var pupils=svg.querySelectorAll('.edpupil');
-    var tx=0, ty=-2, cx=0, cy=-2, MAX=8;
-    document.addEventListener('mousemove', function(e){
-      var r=svg.getBoundingClientRect();
-      var dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
-      var d=Math.hypot(dx,dy)||1;
-      tx=Math.max(-MAX,Math.min(MAX,dx/d*MAX));
-      ty=Math.max(-MAX,Math.min(MAX,dy/d*MAX));
-    });
-    setInterval(function(){ // idle drift when the mouse is still
-      tx=(Math.random()*2-1)*5; ty=(Math.random()*2-1)*4-1;
-    }, 2600);
-    (function tick(){
-      cx+=(tx-cx)*0.12; cy+=(ty-cy)*0.12;
-      pupils.forEach(function(p){
-        p.setAttribute('transform','translate('+cx.toFixed(2)+','+cy.toFixed(2)+')');
-      });
-      requestAnimationFrame(tick);
-    })();
-    var eyes=svg.querySelectorAll('.edeye');
-    (function blink(){
-      setTimeout(function(){
-        eyes.forEach(function(g){ g.style.transform='scaleY(.1)'; });
-        setTimeout(function(){ eyes.forEach(function(g){ g.style.transform='scaleY(1)'; }); }, 300);
-        blink();
-      }, 2600+Math.random()*2600);
-    })();
+    var cv=document.getElementById('cloud'); if(!cv) return;
+    var draw=function(){
+      var w=cv.clientWidth, h=cv.clientHeight, dpr=window.devicePixelRatio||1;
+      cv.width=w*dpr; cv.height=h*dpr;
+      var g=cv.getContext('2d'); g.scale(dpr,dpr); g.clearRect(0,0,w,h);
+      function gauss(){ var s=0; for(var i=0;i<6;i++) s+=Math.random(); return s/6; }
+      // main cluster, upper right — density falls off from the core, bleeds off the edge
+      for(var i=0;i<2800;i++){
+        var a=Math.random()*Math.PI*2, rr=Math.pow(Math.random(),1.6);
+        var x=w*0.70+Math.cos(a)*rr*w*0.55*(0.6+gauss()*0.8);
+        var y=h*0.34+Math.sin(a)*rr*h*0.62*(0.6+gauss()*0.8);
+        if(x<-10||x>w+10||y<-10||y>h+10) continue;
+        var core=rr<0.3;
+        g.fillStyle=core?'rgba(29,59,240,'+(0.5+Math.random()*0.5)+')'
+                        :'rgba(120,140,235,'+(0.12+Math.random()*0.3)+')';
+        var s=core?(1+Math.random()*1.6):(0.6+Math.random()*1.1);
+        g.fillRect(x,y,s,s);
+      }
+      // a few faint connector strands
+      g.strokeStyle='rgba(140,155,235,0.10)'; g.lineWidth=0.6;
+      for(var j=0;j<26;j++){
+        g.beginPath();
+        var x1=w*(0.3+Math.random()*0.6), y1=h*(0.1+Math.random()*0.7);
+        g.moveTo(x1,y1);
+        g.lineTo(x1+(Math.random()-0.5)*w*0.3, y1+(Math.random()-0.5)*h*0.3);
+        g.stroke();
+      }
+      // the lone brand dot, lower left
+      g.fillStyle='#1d3bf0';
+      g.beginPath(); g.arc(w*0.24,h*0.70,3.4,0,7); g.fill();
+    };
+    draw();
+    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(draw,200); });
   })();
 </script>
 
