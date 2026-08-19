@@ -171,6 +171,19 @@
     radial-gradient(50% 45% at 70% 30%, rgba(255,255,255,.85), transparent 55%),
     radial-gradient(70% 70% at 30% 75%, #93b3f2dd, transparent 70%),
     linear-gradient(115deg,#e3f0fb 0%,#93b3f2 55%,#274fe9 100%)}
+  /* cloaked tiles — look identical to the painterly tiles until you hover: the veil
+     lifts and a blurred fraud capture sharpens into view. The uncloaking, as decoration. */
+  .tile.cloak{pointer-events:auto;cursor:crosshair}
+  .tile.cloak .under{position:absolute;inset:0;background:#fff;
+    filter:blur(7px) saturate(.85);transform:scale(1.08);
+    transition:filter .45s ease,transform .45s ease}
+  .tile.cloak:hover .under{filter:blur(0) saturate(1);transform:scale(1)}
+  .tile.cloak .veil{inset:0;width:auto;height:auto;transition:opacity .45s ease}
+  .tile.cloak:hover .veil{opacity:0}
+  .tile.cloak .tag{position:absolute;left:6px;bottom:6px;font-family:var(--mono);
+    font-size:7.5px;letter-spacing:.08em;background:var(--fraud);color:#fff;
+    padding:2px 6px;border-radius:3px;opacity:0;transition:opacity .3s .12s;z-index:2}
+  .tile.cloak:hover .tag{opacity:1}
   .tile.grid{background:linear-gradient(150deg,#eaf3fd,#cfe0fa);border:1px solid #c4d6f5;
     display:grid;grid-template-columns:repeat(3,1fr);place-items:center;
     font-family:var(--mono);font-size:11px;color:var(--cobalt);padding:6px}
@@ -264,10 +277,9 @@
   .storehero small{display:block;font-weight:400;font-size:10.5px;opacity:.85;margin-top:2px}
   .prods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px 10px;
     flex:1;align-content:center}
-  .prod .ph{height:74px;border-radius:6px;display:grid;place-items:center;background:
-    radial-gradient(60% 50% at 30% 25%, rgba(255,255,255,.85), transparent 60%),
-    linear-gradient(150deg,#eef4fc,#dbe7f8)}
-  .prod .ph svg{width:76%;height:auto}
+  .prod .ph{height:74px;border-radius:6px;display:grid;place-items:center;
+    background:var(--paper);border:1px solid var(--line)}
+  .prod .ph svg{width:74%;height:auto}
   .prod .pr{font-size:10.5px;margin-top:5px;color:var(--ink2)}
   .prod .pr s{color:var(--ink3)}
   .prod .pr b{color:var(--fraud)}
@@ -281,7 +293,7 @@
     radial-gradient(65% 55% at 70% 25%, rgba(255,255,255,.75), transparent 60%),
     linear-gradient(120deg,#a8e6d8 0%,#57b7e8 55%,#2b53e8 100%);position:relative;
     display:grid;place-items:center}
-  .adimg svg{width:46%;max-width:200px;height:auto;filter:drop-shadow(0 6px 12px rgba(10,20,60,.25))}
+  .adimg svg{width:48%;max-width:210px;height:auto}
   .adimg .off{position:absolute;left:14px;bottom:12px;background:#fff;color:var(--ink);
     font-weight:700;font-size:15px;padding:5px 11px;border-radius:6px}
   .adbody{display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:12.5px;
@@ -292,10 +304,8 @@
   /* — marketplace listing mock — */
   .lst{display:flex;gap:16px;padding:20px 18px 12px;flex:1;align-items:center}
   .lst .ph{width:130px;height:130px;border-radius:8px;flex-shrink:0;display:grid;
-    place-items:center;background:
-    radial-gradient(55% 45% at 30% 25%, rgba(255,255,255,.85), transparent 55%),
-    linear-gradient(155deg,#eaf6f0,#d8ecf6)}
-  .lst .ph svg{width:74%;height:auto}
+    place-items:center;background:var(--paper);border:1px solid var(--line)}
+  .lst .ph svg{width:64%;height:auto}
   .lst .ti{font-size:13px;font-weight:600;line-height:1.4}
   .lst .stars{color:#e8a33d;font-size:11px;letter-spacing:2px;margin:4px 0}
   .lst .stars small{color:var(--ink3);letter-spacing:0;font-size:10.5px}
@@ -456,7 +466,25 @@
     <div class="edge r"></div>
     <!-- left field: three loose columns, Exa-style -->
     <div class="tile img a" style="left:2.2%;top:96px;width:88px;height:88px"></div>
-    <div class="tile img b" style="left:2.2%;top:196px;width:88px;height:88px"></div>
+    <div class="tile cloak" style="left:2.2%;top:196px;width:92px;height:92px">
+      <div class="under">
+        <!-- mini scam storefront -->
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <rect width="100" height="14" fill="#f1f0ec"/>
+          <circle cx="7" cy="7" r="2" fill="#d9d8d3"/><circle cx="14" cy="7" r="2" fill="#d9d8d3"/>
+          <rect x="22" y="3.5" width="60" height="7" rx="3" fill="#fff" stroke="#e7e6e2"/>
+          <rect y="14" width="100" height="22" fill="#1d3bf0"/>
+          <text x="50" y="28.5" text-anchor="middle" fill="#fff" font-size="9.5"
+            font-family="Arial" font-weight="700">-90% TODAY</text>
+          <rect x="10" y="44" width="36" height="30" rx="3" fill="#dbe7f8"/>
+          <rect x="54" y="44" width="36" height="30" rx="3" fill="#dbe7f8"/>
+          <rect x="10" y="80" width="24" height="5" rx="2" fill="#b42318"/>
+          <rect x="54" y="80" width="24" height="5" rx="2" fill="#b42318"/>
+        </svg>
+      </div>
+      <div class="tile img b veil"></div>
+      <span class="tag">SCAM STORE</span>
+    </div>
     <div class="tile grid"  style="left:1.4%;top:330px;width:96px;height:96px">
       <span>0</span><span>1</span><span>8</span><span>0</span><span>1</span><span>7</span>
       <span>0</span><span>1</span><span></span></div>
@@ -464,20 +492,83 @@
     <div class="tile img d" style="left:2.2%;top:574px;width:88px;height:88px"></div>
     <div class="tile img e" style="left:8.6%;top:150px;width:76px;height:76px"></div>
     <div class="tile img c" style="left:8.6%;top:262px;width:76px;height:76px"></div>
-    <div class="tile img a" style="left:8.6%;top:452px;width:76px;height:76px"></div>
+    <div class="tile cloak" style="left:8.6%;top:452px;width:84px;height:84px">
+      <div class="under">
+        <!-- mini fake checkout -->
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <rect width="100" height="100" fill="#fff"/>
+          <text x="10" y="16" fill="#9c9c98" font-size="7.5" font-family="monospace"
+            letter-spacing="1">CHECKOUT</text>
+          <rect x="10" y="24" width="80" height="11" rx="3" fill="#f1f0ec"/>
+          <rect x="10" y="40" width="80" height="11" rx="3" fill="#f1f0ec"/>
+          <text x="14" y="48.5" fill="#9c9c98" font-size="7" font-family="monospace">····  ····  ····</text>
+          <rect x="10" y="60" width="38" height="11" rx="3" fill="#f1f0ec"/>
+          <rect x="52" y="60" width="38" height="11" rx="3" fill="#f1f0ec"/>
+          <rect x="10" y="79" width="80" height="13" rx="4" fill="#1d3bf0"/>
+          <text x="50" y="88.5" text-anchor="middle" fill="#fff" font-size="7.5"
+            font-family="Arial" font-weight="700">PAY NOW</text>
+        </svg>
+      </div>
+      <div class="tile img a veil"></div>
+      <span class="tag">FAKE CHECKOUT</span>
+    </div>
     <div class="tile solid" style="left:13.6%;top:352px;width:80px;height:80px">
       <span>100%</span><span>90%</span><span>80%</span></div>
     <div class="tile img b" style="left:14.2%;top:544px;width:64px;height:64px"></div>
     <!-- right field -->
     <div class="tile img d" style="right:2.2%;top:104px;width:88px;height:88px"></div>
-    <div class="tile img a" style="right:2.2%;top:204px;width:88px;height:88px"></div>
+    <div class="tile cloak" style="right:2.2%;top:204px;width:92px;height:92px">
+      <div class="under">
+        <!-- mini fake social ad -->
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <rect width="100" height="100" fill="#fff"/>
+          <circle cx="13" cy="12" r="6" fill="#93b3f2"/>
+          <rect x="24" y="7" width="34" height="4" rx="2" fill="#d9d8d3"/>
+          <rect x="24" y="14" width="22" height="3.5" rx="1.75" fill="#ecebe7"/>
+          <rect y="24" width="100" height="46" fill="#57b7e8"/>
+          <rect y="24" width="100" height="46" fill="url(#adg)" opacity=".6"/>
+          <defs><linearGradient id="adg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a8e6d8"/><stop offset="1" stop-color="#2b53e8"/>
+          </linearGradient></defs>
+          <rect x="8" y="52" width="32" height="12" rx="2" fill="#fff"/>
+          <text x="24" y="61" text-anchor="middle" fill="#171717" font-size="7.5"
+            font-family="Arial" font-weight="700">70% OFF</text>
+          <rect x="10" y="78" width="80" height="13" rx="3" fill="#171717"/>
+          <text x="50" y="87.5" text-anchor="middle" fill="#fff" font-size="7.5"
+            font-family="Arial" font-weight="700">SHOP NOW</text>
+        </svg>
+      </div>
+      <div class="tile img a veil"></div>
+      <span class="tag">FAKE AD</span>
+    </div>
     <div class="tile grid q" style="right:1.6%;top:336px;width:92px;height:92px">
       <span>4</span><span>3</span><span>1</span><span>2</span></div>
     <div class="tile img b" style="right:2.2%;top:478px;width:88px;height:88px"></div>
     <div class="tile img e" style="right:2.2%;top:578px;width:88px;height:88px"></div>
     <div class="tile img c" style="right:8.8%;top:158px;width:76px;height:76px"></div>
     <div class="tile img e" style="right:8.8%;top:414px;width:76px;height:76px"></div>
-    <div class="tile img d" style="right:8.8%;top:520px;width:70px;height:70px"></div>
+    <div class="tile cloak" style="right:8.8%;top:520px;width:84px;height:84px">
+      <div class="under">
+        <!-- mini fake listing -->
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <rect width="100" height="100" fill="#fff"/>
+          <rect x="8" y="10" width="38" height="38" rx="3" fill="#d8ecf6"/>
+          <path d="M20 40 q7 -10 14 0 v4 H20 Z" fill="#d16a8a" stroke="#171717" stroke-width="1.4"/>
+          <text x="52" y="20" fill="#e8a33d" font-size="8">★★★★★</text>
+          <rect x="52" y="26" width="36" height="4" rx="2" fill="#d9d8d3"/>
+          <rect x="52" y="33" width="26" height="4" rx="2" fill="#ecebe7"/>
+          <text x="52" y="47" fill="#171717" font-size="9" font-family="Arial"
+            font-weight="700">$19.99</text>
+          <rect x="8" y="58" width="80" height="4" rx="2" fill="#ecebe7"/>
+          <rect x="8" y="66" width="64" height="4" rx="2" fill="#ecebe7"/>
+          <rect x="8" y="79" width="80" height="12" rx="3" fill="#e8a33d"/>
+          <text x="48" y="88" text-anchor="middle" fill="#fff" font-size="7"
+            font-family="Arial" font-weight="700">BUY IT NOW</text>
+        </svg>
+      </div>
+      <div class="tile img d veil"></div>
+      <span class="tag">FAKE LISTING</span>
+    </div>
     <div class="tile grid"  style="right:14%;top:250px;width:70px;height:70px">
       <span>0</span><span>7</span><span></span><span>1</span><span>9</span><span></span></div>
     <div class="tile img a" style="right:14.6%;top:560px;width:60px;height:60px"></div>
@@ -571,28 +662,30 @@
           <small>free shipping worldwide · today only</small></div>
         <div class="prods">
           <div class="prod"><div class="ph">
-            <!-- frying pan -->
-            <svg viewBox="0 0 90 60"><g stroke="#171717" stroke-width="2" stroke-linejoin="round">
-              <ellipse cx="34" cy="36" rx="22" ry="14" fill="#3c4a5d"/>
-              <ellipse cx="34" cy="33" rx="22" ry="13" fill="#55677f"/>
-              <ellipse cx="34" cy="33" rx="14" ry="8" fill="#6e8098"/>
-              <path d="M55 30 q22 -4 28 0 q2 2 0 4 q-8 3 -27 2 Z" fill="#1d3bf0"/></g></svg>
+            <!-- frying pan, thin line -->
+            <svg viewBox="0 0 90 60" fill="none" stroke="#171717" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="32" cy="30" rx="20" ry="6.5"/>
+              <path d="M12 30 q0 11 20 11 q20 0 20 -11"/>
+              <line x1="52" y1="29" x2="80" y2="26"/></svg>
           </div><div class="pr"><s>$89</s> <b>$26</b></div></div>
           <div class="prod"><div class="ph">
-            <!-- sneaker -->
-            <svg viewBox="0 0 90 60"><g stroke="#171717" stroke-width="2" stroke-linejoin="round">
-              <path d="M12 40 q1 -14 13 -17 q7 -2 11 3 q5 6 17 8 q14 2 22 6 v6 H12 Z" fill="#f4f7fc"/>
-              <path d="M12 46 h63 q3 0 3 -3 v-2 H12 Z" fill="#1d3bf0"/>
-              <path d="M30 28 l6 5 M36 25 l6 5" fill="none"/></g>
-              <circle cx="22" cy="36" r="2.5" fill="#1d3bf0"/></svg>
+            <!-- sneaker, thin line -->
+            <svg viewBox="0 0 100 60" fill="none" stroke="#171717" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 42 C15 33 19 25 27 23 C33 21.5 37 24 41 28 C47 34 57 37 68 38.5
+                C78 39.5 85 40.5 87 43 L87 45 C87 47 85.5 48 83 48 L19 48 C16 48 15 46 15 44 Z"/>
+              <path d="M15 43 L87 43"/>
+              <path d="M35 29 l6.5 4.5 M41 25.5 l6.5 4.5"/></svg>
           </div><div class="pr"><s>$120</s> <b>$34</b></div></div>
           <div class="prod"><div class="ph">
-            <!-- serum bottle -->
-            <svg viewBox="0 0 90 60"><g stroke="#171717" stroke-width="2" stroke-linejoin="round">
-              <rect x="34" y="20" width="22" height="34" rx="5" fill="#f3e3c8"/>
-              <rect x="40" y="11" width="10" height="9" fill="#171717"/>
-              <path d="M40 11 h-7 q-2 0 -2 2.5 q0 2.5 2 2.5 h7" fill="#171717"/>
-              <rect x="38" y="32" width="14" height="12" rx="2" fill="#fff"/></g></svg>
+            <!-- serum bottle, thin line -->
+            <svg viewBox="0 0 90 60" fill="none" stroke="#171717" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="34" y="20" width="22" height="34" rx="5"/>
+              <path d="M41 20 v-5 h8 v5"/>
+              <path d="M45 15 v-4 h-9"/>
+              <line x1="38" y1="37" x2="52" y2="37"/></svg>
           </div><div class="pr"><s>$74</s> <b>$22</b></div></div>
         </div>
         <div class="exfoot"><span>YOUR PRODUCT PHOTOS</span><span>CHECKOUT GOES TO SOMEONE ELSE</span>
@@ -604,12 +697,13 @@
           <span><span class="nm">YourBrand</span><br><span class="sp">Sponsored · </span></span>
           <span class="chip red" style="margin-left:auto">AD CREATIVE</span></div>
         <div class="adimg">
-          <!-- hero sneaker, floating like a product shot -->
-          <svg viewBox="0 0 180 110"><g stroke="#171717" stroke-width="3" stroke-linejoin="round">
-            <path d="M22 74 q2 -28 26 -34 q14 -4 22 6 q10 12 34 16 q28 4 44 12 v12 H22 Z" fill="#fdfdfb"/>
-            <path d="M22 86 h126 q6 0 6 -6 v-4 H22 Z" fill="#1d3bf0"/>
-            <path d="M58 46 l12 10 M70 40 l12 10" fill="none"/></g>
-            <circle cx="42" cy="66" r="5" fill="#1d3bf0"/></svg>
+          <!-- hero sneaker, thin white line on the creative -->
+          <svg viewBox="0 0 100 60" fill="none" stroke="#fff" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 42 C15 33 19 25 27 23 C33 21.5 37 24 41 28 C47 34 57 37 68 38.5
+              C78 39.5 85 40.5 87 43 L87 45 C87 47 85.5 48 83 48 L19 48 C16 48 15 46 15 44 Z"/>
+            <path d="M15 43 L87 43"/>
+            <path d="M35 29 l6.5 4.5 M41 25.5 l6.5 4.5"/></svg>
           <span class="off">70% OFF</span></div>
         <div class="adbody">Last day: everything must go →<span class="cta">Shop Now</span></div>
         <div class="exfoot"><span>RUNNING ON PAID SOCIAL</span><span>NOT YOUR CAMPAIGN</span>
@@ -618,12 +712,13 @@
       <!-- 3 · the marketplace listing -->
       <div class="excard">
         <div class="lst"><span class="ph">
-          <!-- lipstick -->
-          <svg viewBox="0 0 70 80"><g stroke="#171717" stroke-width="2.5" stroke-linejoin="round">
-            <path d="M28 18 q7 -8 14 0 v16 H28 Z" fill="#d16a8a"/>
-            <rect x="25" y="34" width="20" height="12" fill="#171717"/>
-            <rect x="21" y="46" width="28" height="24" rx="4" fill="#f3e3c8"/>
-            <rect x="21" y="54" width="28" height="4" fill="#1d3bf0" stroke="none"/></g></svg>
+          <!-- lipstick, thin line -->
+          <svg viewBox="0 0 70 80" fill="none" stroke="#171717" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M28 20 q7 -9 14 0 v14 H28 Z"/>
+            <rect x="25" y="34" width="20" height="10"/>
+            <rect x="21" y="44" width="28" height="26" rx="4"/>
+            <line x1="21" y1="52" x2="49" y2="52"/></svg>
         </span>
           <span><span class="ti">YourBrand Official Store — New Sealed</span>
             <div class="stars">★★★★★ <small>(212)</small></div>
