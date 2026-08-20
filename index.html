@@ -610,8 +610,8 @@
           <input type="email" name="email" placeholder="work email" required>
           <button class="btn black" type="submit">Scan my brand</button>
         </div>
-        <div class="scanthanks" id="scanthanks"><b>Scan running.</b> Ed will email your report
-          in a few minutes — exact counts, nothing inflated.</div>
+        <div class="scanthanks" id="scanthanks"><b>Got it.</b> A human runs your scan and
+          emails you a real report — the fakes we find, with evidence. Usually within a day.</div>
         <!-- the product itself, in the hero: meet Ed, watch him hunt fakes, in his own voice -->
         <div class="edemo" aria-label="Ed hunting fakes">
           <div class="edemo-id">
@@ -646,8 +646,8 @@
           <div class="scanfinds" id="scanfinds"></div>
         </div>
         <div class="scanfoot">
-          <span class="k">Free · no card · report by email</span>
-          <span class="k" style="margin-left:auto">First sweep ≈ 3 minutes</span>
+          <span class="k">Free · no card · human-run report by email</span>
+          <span class="k" style="margin-left:auto">Report usually within a day</span>
         </div>
       </form>
     </div>
@@ -987,13 +987,14 @@
 </div>
 
 <script>
-  // The free-scan form hits the app's funnel endpoint (real tier-0 scan + emailed report).
+  // The free-scan form captures the lead and notifies us; a human runs the real scan and
+  // emails back a full report (no thin auto-scan). The endpoint returns {status:queued}.
   (function(){
     var f=document.getElementById('scan'); if(!f) return;
     f.addEventListener('submit', function(e){
       e.preventDefault();
       var btn=f.querySelector('button');
-      btn.textContent='Scanning…'; btn.disabled=true;
+      btn.textContent='Sending…'; btn.disabled=true;
       var fd=new FormData(f);
       fetch('https://pearl-wind.onrender.com/api/funnel/scan',{
         method:'POST', headers:{'Content-Type':'application/json'},
