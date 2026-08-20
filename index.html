@@ -366,6 +366,10 @@
   .cov{font-size:12.5px;color:var(--ink2);border:1px solid var(--line);border-radius:999px;
     padding:5px 13px;background:#fff;white-space:nowrap}
   .cov-note{font-size:12.5px;color:var(--ink3);text-align:center;margin-top:16px}
+  /* the spend cap — the one number a finance team needs, impossible to miss */
+  .capline{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--cobalt);background:var(--cobalt-pale);border:1px solid #cdd9f7;border-radius:7px;
+    padding:9px 12px;text-align:center;margin:0 0 16px;line-height:1.5}
 
   /* pricing */
   .wedge{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--cobalt);
@@ -868,13 +872,16 @@
           <div class="td">You pay when it comes down. $0 if it doesn't. Your first is free.</div>
         </div>
         <a class="btn black tbtn" href="#scan">Start with Watches</a>
+        <div class="capline" style="margin-top:14px;margin-bottom:6px">Capped at $2,000/mo ·
+          after that, takedowns are free</div>
         <div class="tl">Every takedown:</div>
         <ul class="tlist">
           <li>One signature makes me your authorized agent — signed once, free</li>
           <li>You approve every case before I file — never a surprise charge</li>
           <li>I file with the registrar, host, marketplace, or ad network</li>
           <li>Billed only when the fake is offline, delisted, or blocked</li>
-          <li>Tracked to closure — I tell you the day it dies</li>
+          <li>One itemized monthly invoice — evidence linked on every line</li>
+          <li>Card on file, or ACH / net-15 invoicing on request</li>
           <li>Hard cases quoted up front before any work</li>
         </ul>
       </div>
@@ -910,7 +917,8 @@
     <h2>I get paid when the fake comes down</h2>
     <div class="lede">One signature makes me your authorized agent — signed once, free. From
     then on, every takedown is one price, approved by you before I file, and billed only
-    when the fake is offline, delisted, or blocked. Your first one is on me.</div>
+    when the fake is offline, delisted, or blocked. Your first one is on me — and the whole
+    thing caps at $2,000 a month. Past the cap, every takedown is free.</div>
     <div class="cols4">
       <div class="dcol"><div class="k">Today</div><h4>Fake confirmed</h4>
         <p>Evidence frozen at capture, verified by a human.</p></div>
@@ -919,7 +927,7 @@
       <div class="dcol"><div class="k">I act</div><h4>Filed everywhere it lives</h4>
         <p>Registrar · host · marketplace · ad network. Tracked to closure.</p></div>
       <div class="dcol"><div class="k">It dies</div><h4>Then you pay — $249</h4>
-        <p>Down, delisted, or blocked. $0 if it isn't.</p></div>
+        <p>Down, delisted, or blocked. $0 if it isn't. Never more than $2,000/mo.</p></div>
     </div>
     <a class="btn ondark" href="#scan">Start with a free scan</a>
   </div>
